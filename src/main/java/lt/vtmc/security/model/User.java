@@ -1,10 +1,8 @@
 package lt.vtmc.security.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -20,8 +18,7 @@ public class User {
 	@Size(min = 5)
 	private String username;
 
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.DETACH })
-	@JoinColumn(name = "ROLE_ID")
+	@Enumerated
 	private Role role;
 
 	public User(String password, String username, Role role) {

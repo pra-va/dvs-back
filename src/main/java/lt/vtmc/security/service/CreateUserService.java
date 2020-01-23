@@ -7,10 +7,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import lt.vtmc.security.dao.SystemAdminRepository;
 import lt.vtmc.security.dao.UserRepository;
 import lt.vtmc.security.model.Role;
-import lt.vtmc.security.model.SystemAdmin;
 import lt.vtmc.security.model.User;
 
 @Service
@@ -18,9 +16,6 @@ public class CreateUserService {
 
 	@Autowired
 	private UserRepository userRepository;
-
-	@Autowired
-	private SystemAdminRepository systemAdminRepository;
 
 	/**
 	 * Method to create test users.
@@ -38,24 +33,20 @@ public class CreateUserService {
 
 		newUser.setPassword(encoder.encode(password));
 
-		Role newRole = new Role();
-		newRole.setName("USER");
-		newUser.setRole(newRole);
+		newUser.setRole(Role.USER);
 		userRepository.save(newUser);
 	}
 
 	@Transactional
 	public void createSystemAdministrator(String username, String password) {
-		SystemAdmin newUser = new SystemAdmin();
+		User newUser = new User();
 		newUser.setUsername(username);
 
 		PasswordEncoder encoder = new BCryptPasswordEncoder();
 
 		newUser.setPassword(encoder.encode(password));
 
-		Role newRole = new Role();
-		newRole.setName("ADMIN");
-		newUser.setRole(newRole);
-		systemAdminRepository.save(newUser);
+		newUser.setRole(Role.ADMIN);
+		userRepository.save(newUser);
 	}
 }

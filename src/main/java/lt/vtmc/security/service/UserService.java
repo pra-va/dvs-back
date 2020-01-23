@@ -23,7 +23,7 @@ public class UserService implements UserDetailsService {
 			throw new UsernameNotFoundException(username + " not found.");
 		} else {
 			return new org.springframework.security.core.userdetails.User(newUser.getUsername(), newUser.getPassword(),
-					AuthorityUtils.createAuthorityList(new String[] { "ROLE_" + newUser.getRole().getName() }));
+					AuthorityUtils.createAuthorityList(new String[] { "ROLE_" + newUser.getRole().toString() }));
 		}
 	}
 
