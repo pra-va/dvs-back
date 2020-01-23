@@ -1,7 +1,6 @@
 package lt.vtmc.security.model;
 
 import javax.persistence.Entity;
-import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
@@ -15,13 +14,12 @@ public class User {
 	private String password;
 
 	@Id
-	@Size(min = 5)
+	@Size(min = 4)
 	private String username;
 
-	@Enumerated
-	private Role role;
+	private String role;
 
-	public User(String password, String username, Role role) {
+	public User(String password, String username, String role) {
 		this.password = password;
 		this.username = username;
 		this.role = role;
@@ -46,11 +44,11 @@ public class User {
 		this.username = username;
 	}
 
-	public Role getRole() {
+	public String getRole() {
 		return role;
 	}
 
-	public void setRole(Role role) {
+	public void setRole(String role) {
 		this.role = role;
 	}
 

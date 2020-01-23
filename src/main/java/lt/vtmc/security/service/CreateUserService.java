@@ -8,7 +8,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import lt.vtmc.security.dao.UserRepository;
-import lt.vtmc.security.model.Role;
 import lt.vtmc.security.model.User;
 
 @Service
@@ -33,7 +32,7 @@ public class CreateUserService {
 
 		newUser.setPassword(encoder.encode(password));
 
-		newUser.setRole(Role.USER);
+		newUser.setRole("USER");
 		userRepository.save(newUser);
 	}
 
@@ -46,7 +45,7 @@ public class CreateUserService {
 
 		newUser.setPassword(encoder.encode(password));
 
-		newUser.setRole(Role.ADMIN);
+		newUser.setRole("ADMIN");
 		userRepository.save(newUser);
 	}
 }
