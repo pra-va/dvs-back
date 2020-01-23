@@ -37,17 +37,26 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
 	}
 
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.cors().and().authorizeRequests()
+				.antMatchers("/", "/swagger-ui.html", "/api/createadmin", "/api/createuser").permitAll().and()
+				.formLogin().loginPage("/api/login").permitAll().and().logout().logoutUrl("/api/logout")
+				.logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK)).permitAll().and()
+				.headers().frameOptions().disable().and().csrf().disable();
+
+	}
+
 	/**
 	 * Remove /createadmint from permitall authorization at the end.
 	 */
-	@Override
-
-	protected void configure(HttpSecurity http) throws Exception {
-		http.cors().and().authorizeRequests().antMatchers("/api/**").hasRole("ADMIN").antMatchers("/api/user")
-				.hasRole("USER").antMatchers("/**").permitAll().and().formLogin().loginPage("/api/login").permitAll()
-				.and().logout().logoutUrl("/api/logout").deleteCookies("JSESSIONID")
-				.logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK)).permitAll().and()
-				.csrf().disable();
+//	@Override
+//	protected void configure(HttpSecurity http) throws Exception {
+//		http.cors().and().authorizeRequests().antMatchers("/api/**").hasRole("ADMIN").antMatchers("/api/user")
+//				.hasRole("USER").antMatchers("/**").permitAll().and().formLogin().loginPage("/api/login").permitAll()
+//				.and().logout().logoutUrl("/api/logout").deleteCookies("JSESSIONID")
+//				.logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK)).permitAll().and()
+//				.headers().frameOptions().disable().and().csrf().disable();
 
 //		http.cors().and().authorizeRequests().antMatchers("/api/admin").hasRole("ADMIN").antMatchers("/api/user")
 //				.hasAnyRole("ADMIN", "USER").and().authorizeRequests()
@@ -69,6 +78,4 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 //				.logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK)).permitAll().and()
 //				.csrf().disable().exceptionHandling().authenticationEntryPoint(securityEntryPoint).and().headers()
 //				.frameOptions().disable();
-	}
-
 }
