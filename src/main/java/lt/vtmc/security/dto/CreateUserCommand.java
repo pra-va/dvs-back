@@ -1,4 +1,4 @@
-package lt.vtmc.security.model;
+package lt.vtmc.security.dto;
 
 /**
  * Create user command used by controller
