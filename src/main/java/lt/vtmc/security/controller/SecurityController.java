@@ -16,6 +16,12 @@ import lt.vtmc.security.model.CreateUserCommand;
 import lt.vtmc.security.service.CreateUserService;
 import lt.vtmc.security.service.UserService;
 
+/**
+ * Security controller for system users.
+ * 
+ * @author pra-va
+ *
+ */
 @RestController
 public class SecurityController {
 	@Autowired
@@ -27,6 +33,13 @@ public class SecurityController {
 	@Autowired
 	private UserService userService;
 
+	/**
+	 * This method will return logged in users username.
+	 * 
+	 * @url /api/loggedAdmin
+	 * @method GET
+	 * @return username or "not logged".
+	 */
 	@RequestMapping(path = "/api/loggedAdmin", method = RequestMethod.GET)
 	public String getLoggedInUsername() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -34,22 +47,33 @@ public class SecurityController {
 			String currentUsername = authentication.getName();
 			return currentUsername;
 		}
-		return "not logged";
+		return "Not logged in.";
 	}
 
+	/**
+	 * Creates user with ADMIN role. Only system administrator should be able to
+	 * access this method.
+	 * 
+	 * @url /api/createadmin
+	 * @method POST
+	 * @param user details
+	 */
 	@RequestMapping(path = "/api/createadmin", method = RequestMethod.POST)
 	public void createAdmin(@RequestBody CreateUserCommand command) {
 		createUserService.createSystemAdministrator(command.getUsername(), command.getPassword());
 	}
 
+	/**
+	 * Creates user with ADMIN role. Only system administrator should be able to
+	 * access this method.
+	 * 
+	 * @url /api/createadmin
+	 * @method POST
+	 * @param user details
+	 */
 	@RequestMapping(path = "/api/createuser", method = RequestMethod.POST)
 	public void createUser(@RequestBody CreateUserCommand command) {
 		createUserService.createUser(command.getUsername(), command.getPassword());
-	}
-
-	@GetMapping(path = "/api/find/{username}")
-	public void findUser(@PathVariable String username) {
-		userService.findUserByUsername(username);
 	}
 
 }

@@ -46,36 +46,4 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 				.headers().frameOptions().disable().and().csrf().disable();
 
 	}
-
-	/**
-	 * Remove /createadmint from permitall authorization at the end.
-	 */
-//	@Override
-//	protected void configure(HttpSecurity http) throws Exception {
-//		http.cors().and().authorizeRequests().antMatchers("/api/**").hasRole("ADMIN").antMatchers("/api/user")
-//				.hasRole("USER").antMatchers("/**").permitAll().and().formLogin().loginPage("/api/login").permitAll()
-//				.and().logout().logoutUrl("/api/logout").deleteCookies("JSESSIONID")
-//				.logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK)).permitAll().and()
-//				.headers().frameOptions().disable().and().csrf().disable();
-
-//		http.cors().and().authorizeRequests().antMatchers("/api/admin").hasRole("ADMIN").antMatchers("/api/user")
-//				.hasAnyRole("ADMIN", "USER").and().authorizeRequests()
-//				.antMatchers("/", "/swagger-ui.html", "/createadmin", "/createuser").permitAll().and().formLogin()
-//				.successHandler(new SimpleUrlAuthenticationSuccessHandler() {
-//
-//					@Override
-//					public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-//							Authentication authentication) throws IOException, ServletException {
-//						response.setHeader("Access-Control-Allow-Credentials", "true");
-//						response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
-//						response.setHeader("Content-Type", "application/json;charset=UTF-8");
-//						response.getWriter().print("{\"username\": \""
-//								+ SecurityContextHolder.getContext().getAuthentication().getName() + "\"}");
-//					}
-//
-//				}).failureHandler(new SimpleUrlAuthenticationFailureHandler()).loginPage("/api/login").permitAll().and()
-//				.logout().logoutUrl("/api/logout").deleteCookies("JSESSIONID")
-//				.logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK)).permitAll().and()
-//				.csrf().disable().exceptionHandling().authenticationEntryPoint(securityEntryPoint).and().headers()
-//				.frameOptions().disable();
 }
