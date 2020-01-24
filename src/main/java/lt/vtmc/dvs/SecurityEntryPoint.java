@@ -1,4 +1,4 @@
-package lt.vtmc.security;
+package lt.vtmc.dvs;
 
 import java.io.IOException;
 

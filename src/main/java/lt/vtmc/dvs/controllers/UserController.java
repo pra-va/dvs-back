@@ -1,4 +1,4 @@
-package lt.vtmc.security.controller;
+package lt.vtmc.dvs.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -10,16 +10,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import lt.vtmc.security.model.CreateUserCommand;
-import lt.vtmc.security.service.CreateUserService;
+import lt.vtmc.dvs.dto.CreateUserCommand;
+import lt.vtmc.dvs.services.UserService;
 
 @RestController
-public class SecurityController {
+public class UserController {
 	@Autowired
 	NamedParameterJdbcTemplate jdbcTemplate;
 
 	@Autowired
-	private CreateUserService createUserService;
+	private UserService userService;
 
 	@RequestMapping(path = "/api/loggedAdmin", method = RequestMethod.GET)
 	public String getLoggedInUsername() {
@@ -33,12 +33,12 @@ public class SecurityController {
 
 	@RequestMapping(path = "/api/createadmin", method = RequestMethod.POST)
 	public void createAdmin(@RequestBody CreateUserCommand command) {
-		createUserService.createSystemAdministrator(command.getUsername(), command.getPassword());
+		userService.createSystemAdministrator(command.getUsername(), command.getPassword());
 	}
 
 	@RequestMapping(path = "/api/createuser", method = RequestMethod.POST)
 	public void createUser(@RequestBody CreateUserCommand command) {
-		createUserService.createUser(command.getUsername(), command.getPassword());
+		userService.createUser(command.getUsername(), command.getPassword());
 	}
 
 }

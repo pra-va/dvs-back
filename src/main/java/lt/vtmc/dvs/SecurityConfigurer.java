@@ -1,4 +1,4 @@
-package lt.vtmc.security;
+package lt.vtmc.dvs;
 
 import java.io.IOException;
 
@@ -24,8 +24,7 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationFa
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 
-import lt.vtmc.security.service.SystemAdminService;
-import lt.vtmc.security.service.UserService;
+import lt.vtmc.dvs.services.UserService;
 
 @Configuration
 @EnableWebSecurity
@@ -46,11 +45,11 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 		private SecurityEntryPoint securityEntryPoint;
 
 		@Autowired
-		private SystemAdminService systemAdminService;
+		private UserService userService;
 
 		@Override
 		protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-			auth.userDetailsService(systemAdminService);
+			auth.userDetailsService(userService);
 
 		}
 

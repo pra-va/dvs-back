@@ -1,4 +1,4 @@
-package lt.vtmc.security.model;
+package lt.vtmc.dvs.dto;
 
 public class CreateUserCommand {
 
